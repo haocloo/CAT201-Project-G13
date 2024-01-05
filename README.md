@@ -31,8 +31,8 @@
 ## First Time Setup
 
 ```bash
-git clone https://github.com/haocloo/CAT201-Assignment-13.git
-cd CAT201-Assignment-13
+git clone https://github.com/haocloo/CAT201-Project-G13.git
+cd CAT201-Project-G13
 ```
 
 ## Build and Run
