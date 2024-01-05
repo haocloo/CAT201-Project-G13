@@ -18,16 +18,15 @@
 
 ## Setup
 
-1. Download [JavaFX 21.0.1 LTS](https://gluonhq.com/products/javafx/)
-2. Download [Java 17 JDK](https://www.oracle.com/java/technologies/downloads/#jdk17-windows)
-3. Set up system environment variables:
+1. Download [Java 17 JDK](https://www.oracle.com/java/technologies/downloads/#jdk17-windows)
+2. Set up system environment variables:
     - Variable Name: `JAVA_HOME`
     - Variable Value: `C:\Program Files\Java\jdk-17`
-4. Update `Path` to include `%JAVA_HOME%\bin`
-5. In VSCode, press `Ctrl+Shift+P`, enter `Java: Configure Java Runtime`, select `java 17`
-6. Restart your laptop
-7. Download the extension pack for Java in VSCode
-8. Download [JavaFX Scene Builder](https://gluonhq.com/products/scene-builder/#download)
+3. Update `Path` to include `%JAVA_HOME%\bin`
+4. In VSCode, press `Ctrl+Shift+P`, enter `Java: Configure Java Runtime`, select `java 17`
+5. Restart your laptop
+6. Download the extension pack for Java in VSCode
+7. Download [JavaFX Scene Builder](https://gluonhq.com/products/scene-builder/#download)
 
 ## First Time Setup
 
@@ -38,7 +37,7 @@ cd CAT201-Assignment-13
 
 ## Build and Run
 
-1. Clean the project (optional)
+1. Clean the project / Delete build folder (optional)
 ```bash
 ./gradlew clean
 ```
