@@ -1,0 +1,25 @@
+plugins {
+    // Apply the application plugin to add support for building a CLI application in Java.
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.13'
+}
+
+repositories {
+    // Use Maven Central for resolving dependencies.
+    mavenCentral()
+}
+
+application {
+    // Define the main class for the application.
+    mainClass = 'cat201.project.App'
+}
+
+javafx {
+    version = '18.0.2' // here 18
+    modules = ['javafx.controls',
+               'javafx.fxml',
+               'javafx.web',
+               'javafx.graphics',
+               'javafx.media',
+               "javafx.swing"]
+}
