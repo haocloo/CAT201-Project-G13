@@ -1,0 +1,21 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "gradle",
+      "id": "d:\\OneDrive - Universiti Sains Malaysia\\usm notes\\CS\\Year 2\\Year 2 Semester 1\\CAT201\\assignment\\CAT201-Project-G13buildCAT201-project",
+      "script": "build",
+      "description": "Assembles and tests this project.",
+      "group": "build",
+      "project": "CAT201-project",
+      "buildFile": "D:\\OneDrive - Universiti Sains Malaysia\\usm notes\\CS\\Year 2\\Year 2 Semester 1\\CAT201\\assignment\\CAT201-Project-G13\\build.gradle",
+      "rootProject": "CAT201-project",
+      "projectFolder": "d:\\OneDrive - Universiti Sains Malaysia\\usm notes\\CS\\Year 2\\Year 2 Semester 1\\CAT201\\assignment\\CAT201-Project-G13",
+      "workspaceFolder": "d:\\OneDrive - Universiti Sains Malaysia\\usm notes\\CS\\Year 2\\Year 2 Semester 1\\CAT201\\assignment\\CAT201-Project-G13",
+      "args": "",
+      "javaDebug": false,
+      "problemMatcher": ["$gradle"],
+      "label": "gradle: build"
+    }
+  ]
+}

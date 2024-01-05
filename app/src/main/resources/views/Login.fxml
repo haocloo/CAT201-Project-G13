@@ -2,17 +2,46 @@
 
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<VBox alignment="CENTER" spacing="10" xmlns:fx="http://javafx.com/fxml" fx:controller="cat201.project.controllers.LoginController">    <padding>
-        <Insets top="20" right="20" bottom="20" left="20"/>
-    </padding>
+<GridPane fx:controller="cat201.project.controllers.LoginController"
+          xmlns:fx="http://javafx.com/fxml"
+          alignment="center" hgap="10" vgap="10">
 
-    <Label text="Login"/>
+    <!-- Login Form -->
+    <VBox GridPane.columnIndex="0">
+        <Text text="Scanifood">
+            <font>
+                <Font name="System Bold" size="24.0" />
+            </font>
+        </Text>
 
-    <TextField promptText="Username"/>
+        <Text text="Connexion">
+            <font>
+                <Font name="System Bold" size="18.0" />
+            </font>
+        </Text>
 
-    <PasswordField promptText="Password"/>
+        <Label text="Adresse Email" />
+        <TextField fx:id="emailField" promptText="scanifood@gmail.com" />
 
-    <Button text="Login" onAction="#handleLoginButtonAction"/>
-</VBox>
+        <Label text="Mot de passe" />
+        <PasswordField fx:id="passwordField" promptText="**************" />
+
+        <Hyperlink text="Mot de passe oublié?" />
+
+        <Button text="Connexion" />
+    </VBox>
+
+    <!-- Dish Images -->
+    <HBox GridPane.columnIndex="1">
+        <ImageView fx:id="dish1ImageView" />
+        <ImageView fx:id="dish2ImageView" />
+        <ImageView fx:id="dish3ImageView" />
+        <ImageView fx:id="dish4ImageView" />
+        <ImageView fx:id="dish5ImageView" />
+    </HBox>
+
+</GridPane>
