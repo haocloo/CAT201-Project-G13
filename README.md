@@ -58,3 +58,28 @@ cd CAT201-Project-G13
 ## Git Commands
 
 ![Simplified Diagram for GitHub Collaboration](https://raw.githubusercontent.com/haocloo/github-collaboration-guide/main/simplified%20diagram.png)
+
+## Folder tree `tree /f /a > tree.txt`
+```bash
+|   \---src
+|       \---main
+|           +---java
+|           |   \---cat201
+|           |       \---project
+|           |           |   App.java
+|           |           |   
+|           |           \---controllers
+|           |                   LoginController.java
+|           |                   MainController.java
+|           |                   SceneController.java
+|           |                   
+|           \---resources
+|               |   styles.css
+|               |   
+|               +---images
+|               |       companyLogo.jpg
+|               |       
+|               \---views
+|                       Login.fxml
+|                       Main.fxml
+```
