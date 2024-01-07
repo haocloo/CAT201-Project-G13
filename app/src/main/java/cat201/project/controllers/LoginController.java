@@ -21,7 +21,7 @@ public class LoginController {
     public void login(ActionEvent event) throws IOException {
         String username = nameTextField.getText();
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getClassLoader().getResource("views/Main.fxml"));
+        loader.setLocation(getClass().getResource("views/Main.fxml"));
         Parent root = loader.load();
         
         MainController mainController = loader.getController();

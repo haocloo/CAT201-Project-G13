@@ -64,6 +64,7 @@ cd CAT201-Project-G13
 |   \---src
 |       \---main
 |           +---java
+|           |   |   
 |           |   \---cat201
 |           |       \---project
 |           |           |   App.java
@@ -71,7 +72,6 @@ cd CAT201-Project-G13
 |           |           \---controllers
 |           |                   LoginController.java
 |           |                   MainController.java
-|           |                   SceneController.java
 |           |                   
 |           \---resources
 |               |   styles.css
