@@ -1,47 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
 
-<GridPane fx:controller="cat201.project.controllers.LoginController"
-          xmlns:fx="http://javafx.com/fxml"
-          alignment="center" hgap="10" vgap="10">
+<VBox alignment="CENTER" prefHeight="600.0" prefWidth="800.0" spacing="10" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cat201.project.controllers.LoginController">
+    <padding>
+        <Insets bottom="20" left="20" right="20" top="20" />
+    </padding>
 
-    <!-- Login Form -->
-    <VBox GridPane.columnIndex="0">
-        <Text text="Scanifood">
-            <font>
-                <Font name="System Bold" size="24.0" />
-            </font>
-        </Text>
+    <Label text="Login" />
 
-        <Text text="Connexion">
-            <font>
-                <Font name="System Bold" size="18.0" />
-            </font>
-        </Text>
+    <TextField promptText="Username" />
 
-        <Label text="Adresse Email" />
-        <TextField fx:id="emailField" promptText="scanifood@gmail.com" />
+    <PasswordField promptText="Password" />
 
-        <Label text="Mot de passe" />
-        <PasswordField fx:id="passwordField" promptText="**************" />
-
-        <Hyperlink text="Mot de passe oublié?" />
-
-        <Button text="Connexion" />
-    </VBox>
-
-    <!-- Dish Images -->
-    <HBox GridPane.columnIndex="1">
-        <ImageView fx:id="dish1ImageView" />
-        <ImageView fx:id="dish2ImageView" />
-        <ImageView fx:id="dish3ImageView" />
-        <ImageView fx:id="dish4ImageView" />
-        <ImageView fx:id="dish5ImageView" />
-    </HBox>
-
-</GridPane>
+    <Button onAction="#handleLoginButtonAction" text="Login" />
+</VBox>
