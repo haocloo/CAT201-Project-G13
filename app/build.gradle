@@ -15,7 +15,7 @@ application {
 }
 
 javafx {
-    version = '18.0.2' // here 18
+    version = '21' // updated to 21
     modules = ['javafx.controls',
                'javafx.fxml',
                'javafx.web',
