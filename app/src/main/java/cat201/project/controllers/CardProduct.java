@@ -76,13 +76,13 @@ public class CardProduct implements Initializable {
 
     public void setQuantity() {
         spin = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100, 0);
-     
-
+        prod_spinner.setValueFactory(spin);
     }
 
     private double totalP;
     private double pr;
 
+    
     public void addBtn() {
 
         Main mForm = new Main();
