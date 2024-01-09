@@ -139,10 +139,10 @@ public class Main implements Initializable {
     private TextField inventory_price;
 
     @FXML
-    private ComboBox<?> inventory_status;
+    private ComboBox<String> inventory_status;
 
     @FXML
-    private ComboBox<?> inventory_type;
+    private ComboBox<String> inventory_type;
 
     @FXML
     private AnchorPane menu_form;
@@ -477,7 +477,7 @@ public class Main implements Initializable {
                 alert.setTitle("Error Message");
                 alert.setHeaderText(null);
                 alert.setContentText(
-                        "Are you sure you want to UPDATE PRoduct ID: " + inventory_productID.getText() + "?");
+                        "Are you sure you want to UPDATE Product ID: " + inventory_productID.getText() + "?");
                 Optional<ButtonType> option = alert.showAndWait();
 
                 if (option.get().equals(ButtonType.OK)) {
@@ -653,6 +653,8 @@ public class Main implements Initializable {
         inventory_productName.setText(prodData.getProductName());
         inventory_stock.setText(String.valueOf(prodData.getStock()));
         inventory_price.setText(String.valueOf(prodData.getPrice()));
+        inventory_type.getSelectionModel().select(prodData.getType());
+        inventory_status.getSelectionModel().select(prodData.getStatus());
 
         data.path = prodData.getImage();
 
