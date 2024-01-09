@@ -423,7 +423,7 @@ public class Main implements Initializable {
                     prepare.executeUpdate();
 
                     alert = new Alert(AlertType.INFORMATION);
-                    alert.setTitle("Error Message");
+                    alert.setTitle("Success Message");
                     alert.setHeaderText(null);
                     alert.setContentText("Successfully Added!");
                     alert.showAndWait();
@@ -1177,8 +1177,19 @@ public class Main implements Initializable {
         username.setText(user);
     }
 
+    private void addNumericValidation(TextField textField) {
+        textField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                textField.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        addNumericValidation(inventory_stock);
+        addNumericValidation(inventory_price);
 
         displayUsername();
 
