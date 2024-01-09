@@ -742,7 +742,7 @@ public class Main implements Initializable {
 
             try {
                 FXMLLoader load = new FXMLLoader();
-                load.setLocation(getClass().getClassLoader().getResource("CardProduct.fxml"));
+                load.setLocation(getClass().getClassLoader().getResource("views/CardProduct.fxml"));
                 AnchorPane pane = load.load();
                 CardProduct cardC = load.getController();
                 cardC.setData(cardListData.get(q));
@@ -1148,7 +1148,7 @@ public class Main implements Initializable {
                 logout_btn.getScene().getWindow().hide();
 
                 // LINK YOUR LOGIN FORM AND SHOW IT
-                Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("Login.fxml"));
+                Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("views/Login.fxml"));
 
                 Stage stage = new Stage();
                 Scene scene = new Scene(root);
