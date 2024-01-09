@@ -76,12 +76,12 @@ cd CAT201-Project-G13
 5. Setup in mysql
 1. Create a new database called `restaurant`
 1. Create table `employee` with 6 columns:
-   id INT (primary key)
-   name VARCHAR 100
+   id INT (primary key) Auto Increment
+   username VARCHAR 100
    password VARCHAR 100
    question VARCHAR 100
    answer VARCHAR 100
-   date DATE
+   date DATE Default Null
 
 ## Git Commands
 

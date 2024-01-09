@@ -142,7 +142,7 @@ public class Login implements Initializable {
                 // IF SUCCESSFULLY LOGIN, THEN PROCEED TO ANOTHER FORM WHICH IS OUR MAIN FORM
                 if (result.next()) {
                     // TO GET THE USERNAME THAT USER USED
-                    
+
                     data.username = si_username.getText();
 
                     alert = new Alert(AlertType.INFORMATION);
@@ -183,20 +183,32 @@ public class Login implements Initializable {
     }
 
     public void regBtn() {
-
+        System.out.println("regBtn method called");
         if (su_username.getText().isEmpty() || su_password.getText().isEmpty()
                 || su_question.getSelectionModel().getSelectedItem() == null
                 || su_answer.getText().isEmpty()) {
+            System.out.println("one or more fields are empty");
             alert = new Alert(AlertType.ERROR);
             alert.setTitle("Error Message");
             alert.setHeaderText(null);
             alert.setContentText("Please fill all blank fields");
             alert.showAndWait();
+        } else if (su_password.getText().length() < 8) {
+            System.out.println("Password is less than 8 characters");
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Error Message");
+            alert.setHeaderText(null);
+            alert.setContentText("Invalid Password, at least 8 characters are needed");
+            alert.showAndWait();
         } else {
-
+            System.out.println("all fields are filled");
             String regData = "INSERT INTO employee (username, password, question, answer, date) "
                     + "VALUES(?,?,?,?,?)";
             connect = database.connectDB();
+            if (connect == null)
+                System.out.println("database connection failed");
+            else
+                System.out.println("database connection successful");
 
             try {
                 // CHECK IF THE USERNAME IS ALREADY RECORDED
@@ -207,18 +219,14 @@ public class Login implements Initializable {
                 result = prepare.executeQuery();
 
                 if (result.next()) {
+                    System.out.println("Username already exists");
                     alert = new Alert(AlertType.ERROR);
                     alert.setTitle("Error Message");
                     alert.setHeaderText(null);
                     alert.setContentText(su_username.getText() + " is already taken");
                     alert.showAndWait();
-                } else if (su_password.getText().length() < 8) {
-                    alert = new Alert(AlertType.ERROR);
-                    alert.setTitle("Error Message");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Invalid Password, atleast 8 characters are needed");
-                    alert.showAndWait();
                 } else {
+                    System.out.println("Username and password are valid");
                     prepare = connect.prepareStatement(regData);
                     prepare.setString(1, su_username.getText());
                     prepare.setString(2, su_password.getText());
@@ -256,10 +264,10 @@ public class Login implements Initializable {
                 }
 
             } catch (Exception e) {
+                System.out.println("SQL Exception occured" + e.getMessage());
                 e.printStackTrace();
             }
         }
-
     }
 
     private String[] questionList = { "What is your favorite Color?", "What is your favorite food?",
