@@ -51,11 +51,7 @@ cd CAT201-Project-G13
 
 3. Run the project
 
-- Enable apache and mysql, navigate to `http://localhost/phpmyadmin/`
-
-1. Create a new database called `restaurant`
-2. Create table employee with 5 columns
-   ...
+- Start apache and mysql via XAMPP, navigate to `http://localhost/phpmyadmin/` to view restaurant table
 
 - Run this command in vscode terminal
 
@@ -73,15 +69,17 @@ cd CAT201-Project-G13
 - navigate to the lib folder `CAT201-Project-G13\app\lib`
 - select `fontawesomefx-8.2.jar`
 
-5. Setup in mysql
-1. Create a new database called `restaurant`
-1. Create table `employee` with 6 columns:
-   id INT (primary key) Auto Increment
-   username VARCHAR 100
-   password VARCHAR 100
-   question VARCHAR 100
-   answer VARCHAR 100
-   date DATE Default Null
+5. Test functionality
+   Login > Inventory
+
+- Product ID : PROD-001
+- Product Name : Burger
+- Type : Meals
+- Stock : 1000
+- Price : 1
+- Status : Available
+  > upload image
+  > click add
 
 ## Git Commands
 
@@ -173,6 +171,7 @@ CAT201-Project-G13.
 |           |                   data.java
 |           |                   database.java
 |           |                   productData.java
+|           |                   setup.sql
 |           |
 |           \---resources
 |               |   report.jasper

@@ -264,7 +264,7 @@ public class Login implements Initializable {
                 }
 
             } catch (Exception e) {
-                System.out.println("SQL Exception occured" + e.getMessage());
+                System.out.println("SQL Exception occured: " + e.getMessage());
                 e.printStackTrace();
             }
         }
