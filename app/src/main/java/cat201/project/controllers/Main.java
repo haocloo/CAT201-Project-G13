@@ -849,33 +849,33 @@ public class Main implements Initializable {
 
     public void menuDisplayTotal() {
         menuGetTotal();
-        menu_total.setText("$" + totalP);
+        String totalPStr = String.format("%.2f", totalP);
+        menu_total.setText("$" + totalPStr);
     }
 
     private double amount;
     private double change;
 
+    // this is resource intensive as it runs whenever the user types in the amount
+    // field
     public void menuAmount() {
         menuGetTotal();
-        if (menu_amount.getText().isEmpty() || totalP == 0) {
-            alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Error Message");
-            alert.setHeaderText(null);
-            alert.setContentText("Invalid :3");
-            alert.showAndWait();
-        } else {
+        if (!menu_amount.getText().isEmpty() && totalP != 0) {
             amount = Double.parseDouble(menu_amount.getText());
-            if (amount < totalP) {
-                menu_amount.setText("");
-            } else {
+            if (amount >= totalP) {
                 change = (amount - totalP);
-                menu_change.setText("$" + change);
+                // Format the change to 2 decimal places
+                String changeStr = String.format("%.2f", change);
+                menu_change.setText("$" + changeStr);
+            } else {
+                menu_change.setText("$0.00");
             }
+        } else {
+            menu_change.setText("$0.00");
         }
     }
 
     public void menuPayBtn() {
-
         if (totalP == 0) {
             alert = new Alert(AlertType.ERROR);
             alert.setTitle("Error Message");
@@ -886,16 +886,22 @@ public class Main implements Initializable {
             menuGetTotal();
             String insertPay = "INSERT INTO receipt (customer_id, total, date, em_username) "
                     + "VALUES(?,?,?,?)";
-
             connect = database.connectDB();
 
             try {
 
-                if (amount == 0) {
+                if (totalP == 0) {
                     alert = new Alert(AlertType.ERROR);
-                    alert.setTitle("Error Messaged");
+                    alert.setTitle("Error Message");
                     alert.setHeaderText(null);
-                    alert.setContentText("Something wrong :3");
+                    alert.setContentText("Please choose your order first!");
+                    alert.showAndWait();
+                } else if (amount < totalP) {
+                    alert = new Alert(AlertType.ERROR);
+                    alert.setTitle("Error Message");
+                    alert.setHeaderText(null);
+                    alert.setContentText(
+                            "The payment amount is less than the total price. Please enter a sufficient amount.");
                     alert.showAndWait();
                 } else {
                     alert = new Alert(AlertType.CONFIRMATION);
@@ -919,28 +925,30 @@ public class Main implements Initializable {
 
                         prepare.executeUpdate();
 
+                        // String deleteOrderData = "DELETE FROM customer WHERE customer_id = " + cID;
+                        // prepare = connect.prepareStatement(deleteOrderData);
+                        // prepare.executeUpdate();
+
                         alert = new Alert(AlertType.INFORMATION);
-                        alert.setTitle("Infomation Message");
+                        alert.setTitle("Information Message");
                         alert.setHeaderText(null);
-                        alert.setContentText("Successful.");
+                        alert.setContentText("Payment successful.");
                         alert.showAndWait();
 
                         menuShowOrderData();
-
                     } else {
                         alert = new Alert(AlertType.WARNING);
-                        alert.setTitle("Infomation Message");
+                        alert.setTitle("Information Message");
                         alert.setHeaderText(null);
-                        alert.setContentText("Cancelled.");
+                        alert.setContentText("Payment cancelled.");
                         alert.showAndWait();
                     }
                 }
-
             } catch (Exception e) {
+                System.out.println("Error in menuPayBtn : " + e);
                 e.printStackTrace();
             }
         }
-
     }
 
     public void menuRemoveBtn() {
@@ -984,11 +992,10 @@ public class Main implements Initializable {
         } else {
             HashMap map = new HashMap();
             map.put("getReceipt", (cID - 1));
-
             try {
 
                 JasperDesign jDesign = JRXmlLoader.load(
-                        "C:\\Users\\WINDOWS 10\\Documents\\NetBeansProjects\\cafeShopManagementSystem\\src\\cafeshopmanagementsystem\\report.jrxml");
+                        "src/main/resources/report.jrxml");
                 JasperReport jReport = JasperCompileManager.compileReport(jDesign);
                 JasperPrint jPrint = JasperFillManager.fillReport(jReport, map, connect);
 
@@ -997,9 +1004,9 @@ public class Main implements Initializable {
                 menuRestart();
 
             } catch (Exception e) {
+                System.out.println("Error in menuReceiptBtn : " + e);
                 e.printStackTrace();
             }
-
         }
 
     }
@@ -1008,9 +1015,9 @@ public class Main implements Initializable {
         totalP = 0;
         change = 0;
         amount = 0;
-        menu_total.setText("$0.0");
+        menu_total.setText("$0.00");
         menu_amount.setText("");
-        menu_change.setText("$0.0");
+        menu_change.setText("$0.00");
     }
 
     private int cID;
@@ -1035,7 +1042,6 @@ public class Main implements Initializable {
             if (result.next()) {
                 checkID = result.getInt("MAX(customer_id)");
             }
-
             if (cID == 0) {
                 cID += 1;
             } else if (cID == checkID) {
@@ -1179,7 +1185,7 @@ public class Main implements Initializable {
         username.setText(user);
     }
 
-    private void addNumericValidation(TextField textField) {
+    private void addIntegerValidation(TextField textField) {
         textField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
                 textField.setText(newValue.replaceAll("[^\\d]", ""));
@@ -1187,11 +1193,29 @@ public class Main implements Initializable {
         });
     }
 
+    private void addDoubleValidation(TextField textField) {
+        textField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*(\\.\\d*)?")) {
+                textField.setText(newValue.replaceAll("[^\\d.]", ""));
+            }
+        });
+    }
+
+    // initalizing listeners
+    private void addListeners() {
+        // triggers change calculation when amount field is changed
+        menu_amount.textProperty().addListener((observable, oldValue, newValue) -> {
+            menuAmount();
+        });
+
+        addIntegerValidation(inventory_stock);
+        addDoubleValidation(inventory_price);
+        addDoubleValidation(menu_amount);
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
-        addNumericValidation(inventory_stock);
-        addNumericValidation(inventory_price);
+        addListeners();
 
         displayUsername();
 

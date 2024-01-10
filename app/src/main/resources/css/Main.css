@@ -47,6 +47,10 @@
     -fx-background-color: transparent;
 }
 
+.table-cell {
+    -fx-alignment: CENTER;
+}
+
 .table-view{
     -fx-background-color: transparent;
     -fx-padding: 0;

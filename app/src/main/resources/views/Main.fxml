@@ -34,19 +34,19 @@
                            <children>
                               <AnchorPane layoutX="11.0" layoutY="37.0" prefHeight="87.0" prefWidth="222.0" styleClass="header" stylesheets="@../css/Main.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <Label layoutX="5.0" layoutY="33.0" text="Restaurant Management System" textFill="WHITE">
+                                    <Label layoutX="38.0" layoutY="18.0" prefHeight="48.0" prefWidth="149.0" text="Restaurant Management System" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                                        <font>
-                                          <Font size="15.0" />
+                                          <Font name="System Bold" size="15.0" />
                                        </font>
                                     </Label>
                                  </children>
                               </AnchorPane>
-                              <Label layoutX="14.0" layoutY="103.0" text="Welcome, " textFill="WHITE">
+                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="74.0" layoutY="108.0" prefHeight="22.0" prefWidth="69.0" text="Welcome, " textAlignment="CENTER" textFill="WHITE">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="username" layoutX="84.0" layoutY="100.0" prefHeight="17.0" prefWidth="126.0" text="MarcoMan" textFill="WHITE">
+                              <Label fx:id="username" alignment="CENTER" contentDisplay="CENTER" layoutX="51.0" layoutY="134.0" prefHeight="27.0" prefWidth="114.0" text="Username" textAlignment="CENTER" textFill="WHITE">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
@@ -55,9 +55,9 @@
                               <Button fx:id="inventory_btn" layoutX="6.0" layoutY="248.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="40.0" prefWidth="210.0" styleClass="nav-btn" stylesheets="@../css/Main.css" text="Inventory" />
                               <Button fx:id="menu_btn" layoutX="6.0" layoutY="300.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="40.0" prefWidth="210.0" styleClass="nav-btn" stylesheets="@../css/Main.css" text="Menu" />
                               <Button fx:id="customers_btn" layoutX="6.0" layoutY="349.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="40.0" prefWidth="210.0" styleClass="nav-btn" stylesheets="@../css/Main.css" text="Customers" />
-                              <Button fx:id="logout_btn" layoutX="14.0" layoutY="554.0" mnemonicParsing="false" onAction="#logout" stylesheets="@../css/Main.css" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="14.0">
+                              <Button fx:id="logout_btn" layoutX="14.0" layoutY="554.0" mnemonicParsing="false" onAction="#logout" prefHeight="36.0" prefWidth="145.0" stylesheets="@../css/Main.css" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="14.0">
                                  <graphic>
-                                    <FontAwesomeIcon fill="WHITE" glyphName="SIGN_OUT" size="2em" />
+                                    <FontAwesomeIcon fill="WHITE" glyphName="SIGN_OUT" size="2em" wrappingWidth="114.17141842842102" />
                                  </graphic>
                                  <styleClass>
                                     <String fx:value="logout" />
@@ -113,7 +113,7 @@
                                                             <Font size="15.0" />
                                                          </font>
                                                       </Label>
-                                                      <Label fx:id="dashboard_TI" alignment="CENTER_RIGHT" layoutX="91.0" layoutY="14.0" prefHeight="21.0" prefWidth="147.0" text="\$0.0" textFill="WHITE">
+                                                      <Label fx:id="dashboard_TI" alignment="CENTER_RIGHT" layoutX="91.0" layoutY="14.0" prefHeight="21.0" prefWidth="147.0" text="\$0.00" textFill="WHITE">
                                                          <font>
                                                             <Font size="15.0" />
                                                          </font>
@@ -128,7 +128,7 @@
                                                             <Font size="15.0" />
                                                          </font>
                                                       </Label>
-                                                      <Label fx:id="dashboard_TotalI" alignment="CENTER_RIGHT" layoutX="91.0" layoutY="14.0" prefHeight="21.0" prefWidth="147.0" text="\$0.0" textFill="WHITE">
+                                                      <Label fx:id="dashboard_TotalI" alignment="CENTER_RIGHT" layoutX="91.0" layoutY="14.0" prefHeight="21.0" prefWidth="147.0" text="\$0.00" textFill="WHITE">
                                                          <font>
                                                             <Font size="15.0" />
                                                          </font>
@@ -263,7 +263,7 @@
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
-                                    <TextField fx:id="inventory_price" layoutX="432.0" layoutY="68.0" prefHeight="25.0" prefWidth="168.0" promptText="\$0.0" />
+                                    <TextField fx:id="inventory_price" layoutX="432.0" layoutY="68.0" prefHeight="25.0" prefWidth="168.0" promptText="\$0.00" />
                                     <AnchorPane layoutX="700.0" layoutY="26.0" prefHeight="117.0" prefWidth="120.0" stylesheets="@../css/Main.css" AnchorPane.rightAnchor="29.0">
                                        <styleClass>
                                           <String fx:value="white-bg" />
@@ -328,7 +328,7 @@
                                           <Font size="15.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="menu_total" layoutX="181.0" layoutY="283.0" prefHeight="21.0" prefWidth="127.0" text="\$0.0" AnchorPane.bottomAnchor="262.0" AnchorPane.rightAnchor="12.0">
+                                    <Label fx:id="menu_total" layoutX="181.0" layoutY="283.0" prefHeight="21.0" prefWidth="127.0" text="\$0.00" AnchorPane.bottomAnchor="262.0" AnchorPane.rightAnchor="12.0">
                                        <font>
                                           <Font size="15.0" />
                                        </font>
@@ -338,13 +338,13 @@
                                           <Font size="15.0" />
                                        </font>
                                     </Label>
-                                    <TextField fx:id="menu_amount" layoutX="182.0" layoutY="311.0" onAction="#menuAmount" prefHeight="25.0" prefWidth="126.0" promptText="\$0.0" AnchorPane.bottomAnchor="230.0" AnchorPane.rightAnchor="12.0" />
+                                    <TextField fx:id="menu_amount" layoutX="182.0" layoutY="311.0" onAction="#menuAmount" prefHeight="25.0" prefWidth="126.0" promptText="\$0.00" AnchorPane.bottomAnchor="230.0" AnchorPane.rightAnchor="12.0" />
                                     <Label layoutX="121.0" layoutY="343.0" text="Change:" AnchorPane.bottomAnchor="202.0" AnchorPane.rightAnchor="144.0">
                                        <font>
                                           <Font size="15.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="menu_change" layoutX="181.0" layoutY="343.0" prefHeight="21.0" prefWidth="127.0" text="\$0.0" AnchorPane.bottomAnchor="202.0" AnchorPane.rightAnchor="12.0">
+                                    <Label fx:id="menu_change" layoutX="181.0" layoutY="343.0" prefHeight="21.0" prefWidth="127.0" text="\$0.00" AnchorPane.bottomAnchor="202.0" AnchorPane.rightAnchor="12.0">
                                        <font>
                                           <Font size="15.0" />
                                        </font>
