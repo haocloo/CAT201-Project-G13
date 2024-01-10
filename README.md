@@ -81,6 +81,10 @@ cd CAT201-Project-G13
   > upload image
   > click add
 
+Menu
+- Order an item
+- (Inventory) qty should decrease
+
 ## Git Commands
 
 ![Simplified Diagram for GitHub Collaboration](https://raw.githubusercontent.com/haocloo/github-collaboration-guide/main/simplified%20diagram.png)
