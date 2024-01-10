@@ -84,27 +84,22 @@ public class CardProduct implements Initializable {
     private double pr;
 
     public void addBtn() {
-        System.out.println("addBtn() function called");
 
         Main mForm = new Main();
         mForm.customerID();
 
         qty = prod_spinner.getValue();
-        System.out.println("Quantity: " + qty);
 
         String check = "";
         String checkAvailable = "SELECT status FROM product WHERE prod_id = '"
                 + prodID + "'";
-        System.out.println("checkAvailable query: " + checkAvailable);
 
         connect = database.connectDB();
-        System.out.println("Database connected");
 
         try {
             int checkStck = 0;
             String checkStock = "SELECT stock FROM product WHERE prod_id = '"
                     + prodID + "'";
-            System.out.println("checkStock query: " + checkStock);
 
             prepare = connect.prepareStatement(checkStock);
             result = prepare.executeQuery();
@@ -112,7 +107,6 @@ public class CardProduct implements Initializable {
             if (result.next()) {
                 checkStck = result.getInt("stock");
             }
-            System.out.println("checkStck: " + checkStck);
 
             if (checkStck == 0) {
                 String updateStock = "UPDATE product SET prod_name = '"
@@ -122,10 +116,8 @@ public class CardProduct implements Initializable {
                         + prod_image + "', date = '"
                         + prod_date + "' WHERE prod_id = '"
                         + prodID + "'";
-                System.out.println("updateStock query: " + updateStock);
                 prepare = connect.prepareStatement(updateStock);
                 prepare.executeUpdate();
-                System.out.println("Stock updated to Unavailable");
             }
 
             prepare = connect.prepareStatement(checkAvailable);
@@ -134,7 +126,6 @@ public class CardProduct implements Initializable {
             if (result.next()) {
                 check = result.getString("status");
             }
-            System.out.println("Status check: " + check);
 
             if (!check.equals("Available") || qty == 0) {
                 alert = new Alert(AlertType.ERROR);
@@ -142,7 +133,6 @@ public class CardProduct implements Initializable {
                 alert.setHeaderText(null);
                 alert.setContentText("Something Wrong :3");
                 alert.showAndWait();
-                System.out.println("Error: Something Wrong :3");
             } else {
 
                 if (checkStck < qty) {
@@ -151,14 +141,12 @@ public class CardProduct implements Initializable {
                     alert.setHeaderText(null);
                     alert.setContentText("Invalid. This product is Out of stock");
                     alert.showAndWait();
-                    System.out.println("Error: Invalid. This product is Out of stock");
                 } else {
                     prod_image = prod_image.replace("\\", "\\\\");
 
                     String insertData = "INSERT INTO customer "
                             + "(customer_id, prod_id, prod_name, type, quantity, price, date, image, em_username) "
                             + "VALUES(?,?,?,?,?,?,?,?,?)";
-                    System.out.println("insertData query: " + insertData);
                     prepare = connect.prepareStatement(insertData);
                     prepare.setString(1, String.valueOf(data.cID));
                     prepare.setString(2, prodID);
@@ -177,13 +165,9 @@ public class CardProduct implements Initializable {
                     prepare.setString(9, data.username);
 
                     prepare.executeUpdate();
-                    System.out.println("Data inserted");
 
                     int upStock = checkStck - qty;
-                    System.out.println("Updated stock: " + upStock);
 
-                    System.out.println("Date: " + prod_date);
-                    System.out.println("Image: " + prod_image);
 
                     String updateStock = "UPDATE product SET prod_name = '"
                             + prod_name.getText() + "', type = '"
@@ -193,28 +177,22 @@ public class CardProduct implements Initializable {
                             + prod_image + "', date = '"
                             + prod_date + "' WHERE prod_id = '"
                             + prodID + "'";
-                    System.out.println("updateStock query: " + updateStock);
                     prepare = connect.prepareStatement(updateStock);
                     prepare.executeUpdate();
-                    System.out.println("Stock updated");
 
                     alert = new Alert(AlertType.INFORMATION);
-                    System.out.println("Information alert created");
                     alert.setTitle("Information Message");
                     alert.setHeaderText(null);
                     alert.setContentText("Successfully Added!");
                     alert.showAndWait();
-                    System.out.println("Information alert displayed");
 
                     mForm.menuGetTotal();
-                    System.out.println("menuGetTotal() function called");
                 }
             }
         } catch (Exception e) {
             System.out.println("Exception caught: " + e.getMessage());
             e.printStackTrace();
         }
-        System.out.println("addBtn() function finished");
     }
 
     @Override
