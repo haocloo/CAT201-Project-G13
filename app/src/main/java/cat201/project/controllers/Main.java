@@ -925,9 +925,9 @@ public class Main implements Initializable {
 
                         prepare.executeUpdate();
 
-                        String deleteOrderData = "DELETE FROM customer WHERE customer_id = " + cID;
-                        prepare = connect.prepareStatement(deleteOrderData);
-                        prepare.executeUpdate();
+                        // String deleteOrderData = "DELETE FROM customer WHERE customer_id = " + cID;
+                        // prepare = connect.prepareStatement(deleteOrderData);
+                        // prepare.executeUpdate();
 
                         alert = new Alert(AlertType.INFORMATION);
                         alert.setTitle("Information Message");
@@ -936,7 +936,6 @@ public class Main implements Initializable {
                         alert.showAndWait();
 
                         menuShowOrderData();
-                        menuRestart();
                     } else {
                         alert = new Alert(AlertType.WARNING);
                         alert.setTitle("Information Message");
@@ -993,11 +992,10 @@ public class Main implements Initializable {
         } else {
             HashMap map = new HashMap();
             map.put("getReceipt", (cID - 1));
-
             try {
 
                 JasperDesign jDesign = JRXmlLoader.load(
-                        "C:\\Users\\WINDOWS 10\\Documents\\NetBeansProjects\\cafeShopManagementSystem\\src\\cafeshopmanagementsystem\\report.jrxml");
+                        "src/main/resources/report.jrxml");
                 JasperReport jReport = JasperCompileManager.compileReport(jDesign);
                 JasperPrint jPrint = JasperFillManager.fillReport(jReport, map, connect);
 
@@ -1006,9 +1004,9 @@ public class Main implements Initializable {
                 menuRestart();
 
             } catch (Exception e) {
+                System.out.println("Error in menuReceiptBtn : " + e);
                 e.printStackTrace();
             }
-
         }
 
     }
@@ -1044,7 +1042,6 @@ public class Main implements Initializable {
             if (result.next()) {
                 checkID = result.getInt("MAX(customer_id)");
             }
-
             if (cID == 0) {
                 cID += 1;
             } else if (cID == checkID) {
