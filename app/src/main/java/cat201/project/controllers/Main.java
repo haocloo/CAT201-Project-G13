@@ -1179,7 +1179,7 @@ public class Main implements Initializable {
         username.setText(user);
     }
 
-    private void addNumericValidation(TextField textField) {
+    private void addIntegerValidation(TextField textField) {
         textField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
                 textField.setText(newValue.replaceAll("[^\\d]", ""));
@@ -1187,11 +1187,18 @@ public class Main implements Initializable {
         });
     }
 
+    private void addDoubleValidation(TextField textField) {
+        textField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*(\\.\\d*)?")) {
+                textField.setText(newValue.replaceAll("[^\\d.]", ""));
+            }
+        });
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
-        addNumericValidation(inventory_stock);
-        addNumericValidation(inventory_price);
+        addIntegerValidation(inventory_stock);
+        addDoubleValidation(inventory_price);
 
         displayUsername();
 
