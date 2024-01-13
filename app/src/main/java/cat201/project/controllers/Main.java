@@ -300,7 +300,7 @@ public class Main implements Initializable {
 
     public void dashboardNSP() {
 
-        String sql = "SELECT COUNT(quantity) FROM customer";
+        String sql = "SELECT SUM(quantity) FROM customer";
 
         connect = database.connectDB();
 
@@ -310,7 +310,7 @@ public class Main implements Initializable {
             result = prepare.executeQuery();
 
             if (result.next()) {
-                q = result.getInt("COUNT(quantity)");
+                q = result.getInt("SUM(quantity)");
             }
             dashboard_NSP.setText(String.valueOf(q));
 
@@ -532,7 +532,7 @@ public class Main implements Initializable {
                     alert = new Alert(AlertType.ERROR);
                     alert.setTitle("Error Message");
                     alert.setHeaderText(null);
-                    alert.setContentText("successfully Deleted!");
+                    alert.setContentText("Successfully Deleted!");
                     alert.showAndWait();
 
                     // TO UPDATE YOUR TABLE VIEW
@@ -747,6 +747,7 @@ public class Main implements Initializable {
                 load.setLocation(getClass().getClassLoader().getResource("views/CardProduct.fxml"));
                 AnchorPane pane = load.load();
                 CardProduct cardC = load.getController();
+                cardC.setMainForm(this);
                 cardC.setData(cardListData.get(q));
 
                 if (column == 3) {
@@ -811,6 +812,7 @@ public class Main implements Initializable {
     }
 
     private int getid;
+    private String getProdID;
 
     public void menuSelectOrder() {
         productData prod = menu_tableView.getSelectionModel().getSelectedItem();
@@ -821,7 +823,7 @@ public class Main implements Initializable {
         }
         // TO GET THE ID PER ORDER
         getid = prod.getId();
-
+        getProdID = prod.getProductId();
     }
 
     private double totalP;
@@ -952,7 +954,6 @@ public class Main implements Initializable {
     }
 
     public void menuRemoveBtn() {
-
         if (getid == 0) {
             alert = new Alert(AlertType.ERROR);
             alert.setTitle("Error Message");
@@ -960,9 +961,36 @@ public class Main implements Initializable {
             alert.setContentText("Please select the order you want to remove");
             alert.showAndWait();
         } else {
-            String deleteData = "DELETE FROM customer WHERE id = " + getid;
             connect = database.connectDB();
             try {
+                // Get the current quantity of the product in the order
+                String getQuantity = "SELECT quantity FROM customer WHERE id = ?";
+                PreparedStatement prepare = connect.prepareStatement(getQuantity);
+                prepare.setInt(1, getid);
+                ResultSet result = prepare.executeQuery();
+                int orderQuantity = 0;
+                if (result.next()) {
+                    orderQuantity = result.getInt("quantity");
+                }
+
+                // Get the current stock of the product
+                String getStock = "SELECT stock FROM product WHERE prod_id = ?";
+                prepare = connect.prepareStatement(getStock);
+                prepare.setString(1, getProdID);
+                result = prepare.executeQuery();
+                if (result.next()) {
+                    int currentStock = result.getInt("stock");
+
+                    // Increase the stock in the product table
+                    String updateStock = "UPDATE product SET stock = ? WHERE prod_id = ?";
+                    prepare = connect.prepareStatement(updateStock);
+                    prepare.setInt(1, currentStock + orderQuantity); // sum the current stock and the quantity being
+                                                                     // removed
+                    prepare.setString(2, getProdID);
+                    prepare.executeUpdate();
+                }
+
+                // Confirm with the user before deleting the order
                 alert = new Alert(AlertType.CONFIRMATION);
                 alert.setTitle("Confirmation Message");
                 alert.setHeaderText(null);
@@ -970,15 +998,18 @@ public class Main implements Initializable {
                 Optional<ButtonType> option = alert.showAndWait();
 
                 if (option.get().equals(ButtonType.OK)) {
+                    // Delete the order from the customer table
+                    String deleteData = "DELETE FROM customer WHERE id = ?";
                     prepare = connect.prepareStatement(deleteData);
+                    prepare.setInt(1, getid);
                     prepare.executeUpdate();
                 }
 
                 menuShowOrderData();
             } catch (Exception e) {
+                System.out.println("Error in menuRemoveBtn : " + e);
                 e.printStackTrace();
             }
-
         }
     }
 
@@ -1138,6 +1169,10 @@ public class Main implements Initializable {
             customersShowData();
         }
 
+    }
+
+    public void clickMenuBtn() {
+        menu_btn.fire();
     }
 
     public void logout() {

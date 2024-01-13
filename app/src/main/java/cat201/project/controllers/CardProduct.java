@@ -50,6 +50,7 @@ public class CardProduct implements Initializable {
     private String prod_image;
 
     private SpinnerValueFactory<Integer> spin;
+    private Main mainForm;
 
     private Connection connect;
     private PreparedStatement prepare;
@@ -78,6 +79,10 @@ public class CardProduct implements Initializable {
     public void setQuantity() {
         spin = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100, 0);
         prod_spinner.setValueFactory(spin);
+    }
+
+    public void setMainForm(Main mainForm) {
+        this.mainForm = mainForm;
     }
 
     private double totalP;
@@ -127,11 +132,17 @@ public class CardProduct implements Initializable {
                 check = result.getString("status");
             }
 
-            if (!check.equals("Available") || qty == 0) {
+            if (!check.equals("Available")) {
                 alert = new Alert(AlertType.ERROR);
                 alert.setTitle("Error Message");
                 alert.setHeaderText(null);
-                alert.setContentText("Something Wrong :3");
+                alert.setContentText("The item is unavailable.");
+                alert.showAndWait();
+            } else if (qty == 0) {
+                alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Error Message");
+                alert.setHeaderText(null);
+                alert.setContentText("Select quantity");
                 alert.showAndWait();
             } else {
 
@@ -139,7 +150,7 @@ public class CardProduct implements Initializable {
                     alert = new Alert(AlertType.ERROR);
                     alert.setTitle("Error Message");
                     alert.setHeaderText(null);
-                    alert.setContentText("Invalid. This product is Out of stock");
+                    alert.setContentText("Invalid. This product is Out of stock, only " + checkStck + " left.");
                     alert.showAndWait();
                 } else {
                     prod_image = prod_image.replace("\\", "\\\\");
@@ -168,7 +179,6 @@ public class CardProduct implements Initializable {
 
                     int upStock = checkStck - qty;
 
-
                     String updateStock = "UPDATE product SET prod_name = '"
                             + prod_name.getText() + "', type = '"
                             + type + "', stock = " + upStock + ", price = " + pr
@@ -188,6 +198,9 @@ public class CardProduct implements Initializable {
 
                     mForm.menuGetTotal();
                 }
+
+                // Refresh the Menu tab to show latest data
+                mainForm.clickMenuBtn();
             }
         } catch (Exception e) {
             System.out.println("Exception caught: " + e.getMessage());
