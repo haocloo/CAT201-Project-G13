@@ -16,6 +16,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -271,8 +273,7 @@ public class Main implements Initializable {
                 ti = result.getDouble("SUM(total)");
             }
 
-            dashboard_TI.setText("$" + ti);
-
+            dashboard_TI.setText(String.format("RM %.2f", ti));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -291,7 +292,7 @@ public class Main implements Initializable {
             if (result.next()) {
                 ti = result.getFloat("SUM(total)");
             }
-            dashboard_TotalI.setText("$" + ti);
+            dashboard_TotalI.setText(String.format("RM %.2f", ti));
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -632,12 +633,12 @@ public class Main implements Initializable {
         inventory_col_productName.setCellValueFactory(new PropertyValueFactory<>("productName"));
         inventory_col_type.setCellValueFactory(new PropertyValueFactory<>("type"));
         inventory_col_stock.setCellValueFactory(new PropertyValueFactory<>("stock"));
-        inventory_col_price.setCellValueFactory(new PropertyValueFactory<>("price"));
+        inventory_col_price.setCellValueFactory(
+                cellData -> new SimpleStringProperty(String.format("%.2f", cellData.getValue().getPrice())));
         inventory_col_status.setCellValueFactory(new PropertyValueFactory<>("status"));
         inventory_col_date.setCellValueFactory(new PropertyValueFactory<>("date"));
 
         inventory_tableView.setItems(inventoryListData);
-
     }
 
     public void inventorySelectData() {
@@ -806,7 +807,11 @@ public class Main implements Initializable {
 
         menu_col_productName.setCellValueFactory(new PropertyValueFactory<>("productName"));
         menu_col_quantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
-        menu_col_price.setCellValueFactory(new PropertyValueFactory<>("price"));
+        menu_col_price.setCellValueFactory(cellData -> {
+            Double price = cellData.getValue().getPrice();
+            String formattedPrice = String.format("%.2f", price);
+            return new SimpleStringProperty(formattedPrice);
+        });
 
         menu_tableView.setItems(menuOrderListData);
     }
@@ -852,7 +857,7 @@ public class Main implements Initializable {
     public void menuDisplayTotal() {
         menuGetTotal();
         String totalPStr = String.format("%.2f", totalP);
-        menu_total.setText("$" + totalPStr);
+        menu_total.setText("RM" + totalPStr);
     }
 
     private double amount;
@@ -868,12 +873,12 @@ public class Main implements Initializable {
                 change = (amount - totalP);
                 // Format the change to 2 decimal places
                 String changeStr = String.format("%.2f", change);
-                menu_change.setText("$" + changeStr);
+                menu_change.setText("RM " + changeStr);
             } else {
-                menu_change.setText("$0.00");
+                menu_change.setText("RM 0.00");
             }
         } else {
-            menu_change.setText("$0.00");
+            menu_change.setText("RM 0.00");
         }
     }
 
@@ -1046,9 +1051,9 @@ public class Main implements Initializable {
         totalP = 0;
         change = 0;
         amount = 0;
-        menu_total.setText("$0.00");
+        menu_total.setText("RM 0.00");
         menu_amount.setText("");
-        menu_change.setText("$0.00");
+        menu_change.setText("RM 0.00");
     }
 
     private int cID;
@@ -1120,7 +1125,8 @@ public class Main implements Initializable {
         customersListData = customersDataList();
 
         customers_col_customerID.setCellValueFactory(new PropertyValueFactory<>("customerID"));
-        customers_col_total.setCellValueFactory(new PropertyValueFactory<>("total"));
+        customers_col_total.setCellValueFactory(
+                cellData -> new SimpleStringProperty(String.format("%.2f", cellData.getValue().getTotal())));
         customers_col_date.setCellValueFactory(new PropertyValueFactory<>("date"));
         customers_col_cashier.setCellValueFactory(new PropertyValueFactory<>("emUsername"));
 
