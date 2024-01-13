@@ -27,6 +27,7 @@ import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -158,6 +159,9 @@ public class Login implements Initializable {
                     Scene scene = new Scene(root);
 
                     stage.setTitle("Restaurant Management System");
+                    Image icon = new Image(getClass().getClassLoader().getResourceAsStream("images/companyLogo.jpeg"));
+                    stage.getIcons().add(icon);
+
                     stage.setMinWidth(1100);
                     stage.setMinHeight(600);
 
