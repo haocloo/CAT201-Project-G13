@@ -1,3 +1,5 @@
+# Credits to [MarcoMan](https://github.com/marcoman2)
+
 # Integrated Software Development Workshop 2023/2024
 
 ## Group 13 Members
